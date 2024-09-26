@@ -2,7 +2,7 @@
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
     "path": "~/Documents/GitHub/Homeless-deaths-by-cause/homeless-deaths-by-cause"

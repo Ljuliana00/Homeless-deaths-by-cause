@@ -18,7 +18,8 @@ The repo is structured as:
 
 
 ## Statement on LLM usage
-No use from LLM
+
+Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
 
 ## Some checks
 
