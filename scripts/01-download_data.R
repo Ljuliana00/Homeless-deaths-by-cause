@@ -1,11 +1,11 @@
 #### Preamble ####
 # Purpose: Downloads and saves the data from Toronto Opendata
-# Author: 
-# Date: 26th September 2024
-# Contact: 
+# Author: Juliana Zhu
+# Date: 27th September 2024
+# Contact: juliana.zhu@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: none
-# Other information needed: install packages "opendatatoronto", "dplyr"
+# Other information needed: install packages "opendatatoronto", "dplyr".
 
 
 #### Workspace setup ####

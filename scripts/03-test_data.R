@@ -1,11 +1,11 @@
 #### Preamble ####
 # Purpose: test the data
-# Author:
+# Author: Juliana Zhu
 # Date: 26th September 2024
-# Contact: 
+# Contact: juliana.zhu@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: none
-# Other information needed: no
+# Other information needed: none
 
 
 #### Workspace setup ####

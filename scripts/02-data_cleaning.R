@@ -5,7 +5,7 @@
 # Contact: juliana.zhu@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: none
-# Other information needed: no
+# Other information needed: none
 
 
 #### Workspace setup ####

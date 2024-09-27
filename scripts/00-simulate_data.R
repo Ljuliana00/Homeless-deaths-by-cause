@@ -1,9 +1,11 @@
 #### Preamble ####
 # Purpose: Simulate the homeless deaths by cause data
-# Date: 26th September 2024
-# Contact: 
+# Author: Juliana Zhu
+# Date: 27th September 2024
+# Contact: juliana.zhu@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: none
+# Other information needed: none
 
 
 #### Workspace setup ####
