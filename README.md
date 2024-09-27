@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo provides information and analysis paper relating to the data of homeless deaths by cause between 2017 to 2023, focusing on evaluating the factors pose the greatest threat to the lives and health of different groups of homeless people
+This repo provides information and analysis paper relating to the data of homeless deaths by cause between 2017 to 2023, focusing on evaluating the factors pose the greatest threat to the lives and health of different groups of homeless people.
 
 ## File Structure
 
