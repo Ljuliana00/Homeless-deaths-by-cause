@@ -1,12 +1,10 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - Juliana Zhu
-thanks: "Code and data are available at: LINK."
+title: "Evaluating the factors pose the greatest threat to the lives and health of different groups of homeless people during 2017-2023"
+author: Juliana Zhu
+thanks: "Code and data are available at: "
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "The paper evaluates the factors posing the greatest threats to the lives and heath of various homeless people between 2017 and 2023. The dataset represents key determinants such as accident, drug toxicity and cancer that have impacted mortality rates among homeless people. By examining data, it emphasizes how these factors affect different groups of homeless people, including those based on age, gender, and year of death. The findings underscore the need for targeted interventions to reduce mortality of homeless and improve overall heath conditions ."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -19,202 +17,155 @@ bibliography: references.bib
 
 library(tidyverse)
 library(palmerpenguins)
+library(knitr)
+analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
 ```
-
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+The homeless are one of the most vulnerable groups in society, and there are many factors that seriously affect their health and well-being. Discussing and studying the health and life threats of homeless can help urban planners consider the special needs of these people when designing and managing cities, thus creating a more inclusive and safer urban environment. At the same time, such research can prompt more social attention and support for homeless to promote the overall progress of society.
 
-The remainder of this paper is structured as follows. @sec-data....
+In this paper, I will analyze the homeless deaths by cause data from Open Data Toronto, focusing on the distribution and the relationships between the homeless deaths count, year of death, age groups, gender and cause of data. From the data, the main causes of death among the homeless from 2017 to 2023 are Accident, Cancer, Cardiovascular Disease, COVID-19, Drug toxicity, Homicide, Infection, Pneumonia, and Suicide. By analyzing the data on the causes of death, we can better understand which factors are most harming the health and well-being of the homeless so that we can call on governments and society to take measures.
 
+I use 'R' to do all the statistical analysis and data visualization (@citeR) and use 'tidyverse' to plot the data (@citetidyverse). At the same time, I use 'opendatatoronto' to access and download Toronto City's open data of homeless deaths by cause (@citeopendatatoronto). Besides of that, I use 'here' package to simplify the file paths (@citehere) and use 'readr' package to read the date from the file (@citereadr).
 
+The remainder of this paper is structured as follows: in @sec-data I present the data and the variables used for the analysis. Then I made the plots about relationships between other variables and the count of deaths and compare them to get the final finding.
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+## The background of the data
+
+The dataset is from Toronto Public Health (TPH), strarting in January 2017 to track the deaths of people experiencing homelessness to get a more accurate estimate of the number of deaths and their causes. For this data collection initiative, homelessness is defined as “the situation of an individual or family without stable, permanent, appropriate housing, or the immediate prospect, means and ability of acquiring it”.
+
+## Measurement of variables from the data
+
+The data has 5 variables: "year_of_death": the year that the death occurred; "cause_of_death": the reasons of homeless deaths; "age_group": the age of homeless people; "gender": the gender of homeless people; "count": the total number of homeless deaths.
+
+## Limitations of the data (from opendatatoronto)
+
+-This data reflects only deaths that are reported to TPH by SSHA, community partners and the Coroner’s Office.
+
+-Cause of death is unknown or pending in approximately 25% of the reported deaths.
+
+-In 2019, TPH ceased reporting on location of death as this information is often unknown or unverified.
+
+-The data does not identify Indigenous status as this is reported as unknown or missing in 70% of the reported cases. With this high a percentage of missing information, accurate conclusions cannot be drawn, as such, it is standard epidemiological practice to suppress the release of data.
+
+-Cause of death for transgender people not shown due to small counts. -Cause of death is unknown in approximately 25% of the reports. To protect privacy, causes of death with less than 2% of the cases are included in the Other category.
+
+-Data are subject to change should TPH receive additional reports or further information on existing reports. Previously published data may change due to delays in reporting. The most recently published data should be considered the most complete.
+
+## Visualization of the data
+
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| eval: true
+#| label: fig-line
+#| fig-cap: Number of deaths by year for gender groups
 #| echo: false
 #| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
 
 analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+  group_by(year_of_death, gender) |> 
+  summarise(deaths=sum(count)) %>%
+  ggplot(aes(x=year_of_death, y=deaths, color=gender)) + geom_line() +
+  geom_point() + 
+  geom_text(aes(label = deaths), vjust=-0.5) +
+  labs(x="Year", y="Deaths", 
+       color="Gender") +
+  theme_bw()
 ```
 
-Talk way more about it. 
+Talk way more about it.
 
 
 
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
-
-# Discussion
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
 
 ```{r}
 #| eval: true
-#| echo: false
-#| message: false
 #| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
+#| label: fig-plot
+#| fig-cap: Number of deaths by year for different age groups and gender groups
+#| fig-subcap: ["Gender Vs. Count", "Age Vs. Count", "Percentage"]
+#| layout-ncol: 3
+#| echo: false
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
+analysis_data |> 
+  group_by(year_of_death, gender) |> 
+  summarise(deaths=sum(count)) %>%
+  ggplot(aes(x=year_of_death, y=deaths, color=gender)) + geom_line() +
+  geom_point() + 
+  geom_text(aes(label = deaths), vjust=-0.5) +
+  labs(x="Year", y="Deaths", 
+       color="Gender") +
+  theme_bw()
 
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
+
+analysis_data |> 
+  group_by(year_of_death, age_group) |> 
+  summarise(deaths=sum(count)) %>%
+  ggplot(aes(x=year_of_death, y=deaths, color=age_group)) + geom_line() +
+  geom_point() + 
+  geom_text(aes(label = deaths), vjust=-0.5) +
+  labs(x="Year", y="Deaths")
+
+
+analysis_data %>%
+  group_by(age_group, gender) %>%
+  summarise(total=sum(count))  %>%
+  ggplot(aes(x=age_group, y=total, fill=gender)) + geom_col(position = "fill") +
+  labs(y="Percentage", x="Age Group", fill="Gender") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+@fig-plot presents..... @fig-plot-1
+
+@fig-plot-2 presents
+
+@fig-plot-3 presents
+
+
+
+
+
+```{r}
+#| eval: true
+#| label: fig-3
+#| fig-cap: Number of deaths by different causes
+#| echo: false
+
+analysis_data %>%
+  group_by(cause_of_death) %>%
+  summarise(total=sum(count)) %>%
+  ggplot(aes(x=reorder(cause_of_death, total), y=total)) +
+  geom_col(fill="cornflowerblue") +
+  coord_flip()  +
+  labs(x="Cause of deaths", y="Number of deaths")
+```
+
+
+
+
+
+```{r}
+#| eval: true
+#| label: fig-4
+#| fig-cap: Percentage of deaths by causes for different genders
+#| echo: false
+#| warning: false
+
+analysis_data %>%
+  group_by(cause_of_death, gender) %>%
+  summarise(total=sum(count))  %>%
+  ggplot(aes(x=cause_of_death, y=total, fill=gender)) + geom_col(position = "fill") +
+  labs(y="Percentage", x="Cause of death", fill="Gender") +
+  scale_y_continuous(labels = scales::percent) +
   coord_flip()
 ```
 
-## Diagnostics
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
-
-
-
-\newpage
+\clearpage
 
 
 # References
-
-

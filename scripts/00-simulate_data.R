@@ -1,8 +1,7 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from Toronto Opendata
-# Author: Juliana Zhu
+# Purpose: Simulate the homeless deaths by cause data
 # Date: 26th September 2024
-# Contact: juliana.zhu@mail.utoronto.ca
+# Contact: 
 # License: MIT
 # Pre-requisites: none
 
