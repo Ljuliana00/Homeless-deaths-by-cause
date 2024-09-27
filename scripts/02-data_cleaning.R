@@ -1,11 +1,12 @@
 #### Preamble ####
 # Purpose: Clean the data
-# Author: 
+# Author: Juliana Zhu
 # Date: 27th September 2024
-# Contact: 
+# Contact: juliana.zhu@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: none
-# Other information needed: No
+# Other information needed: no
+
 
 #### Workspace setup ####
 library(tidyverse)
@@ -27,4 +28,18 @@ cleaned_data <-
 write_csv(cleaned_data, "data/analysis_data/analysis_data.csv")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> f14d1c3c6fb8deef48fae94aa297cc83b6e89052
 
