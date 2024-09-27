@@ -57,30 +57,6 @@ The data has 5 variables: "year_of_death": the year that the death occurred; "ca
 
 ## Visualization of the data
 
-
-```{r}
-#| eval: true
-#| label: fig-line
-#| fig-cap: Number of deaths by year for gender groups
-#| echo: false
-#| warning: false
-
-analysis_data |> 
-  group_by(year_of_death, gender) |> 
-  summarise(deaths=sum(count)) %>%
-  ggplot(aes(x=year_of_death, y=deaths, color=gender)) + geom_line() +
-  geom_point() + 
-  geom_text(aes(label = deaths), vjust=-0.5) +
-  labs(x="Year", y="Deaths", 
-       color="Gender") +
-  theme_bw()
-```
-
-Talk way more about it.
-
-
-
-
 ```{r}
 #| eval: true
 #| warning: false
@@ -119,19 +95,17 @@ analysis_data %>%
 ```
 
 
-@fig-plot presents..... @fig-plot-1
+@fig-plot presents the number of deaths among homeless people categorized by gender and age groups from 2017 to 2023, divided into three subplots. @fig-plot-1 illustrates the number of deaths caused by being homeless recorded from 2017-2023, categorized by gender into Female, Male and the Unknown. According to the graph, the total death rate of homeless males shows a continuous upward trend, starting at 75 in 2017, peaking at 161 in 2021, and then slightly declining to 127 by 2023. In comparison, the death rate among homeless females has shown a steadier pattern. The number started at 25 in 2017, gradually rising to a peak of 50 in 2021, and ending with a total of 20 in 2023. The Unknown category remained consistently low throughout the 6-year period, starting at 1 in 2017, reaching a peak of 6 in 2021, and returning to 1 by 2023. 
 
-@fig-plot-2 presents
-
-@fig-plot-3 presents
+@fig-plot-2 presents the number of deaths among homeless individuals categorized by age group from 2017 to 2023. According to the graph, the death rate among the 40-59 age group shows a continuous upward trend, starting at 47 in 2017, peaking at 90 in 2021, and then slightly declining to 65 by 2023.The death rate among the 60+ age group started at 26 in 2017, gradually rising to a peak of 58 in 2022, followed by a decrease to 44 in 2023. The 20-39 age group also reached its peak in 2021 with 70 deaths, before dropping sharply to 30 by 2023. The death rate for those under 20 shown in the graph remained consistently low, ending with 3 deaths in 2023. The Unknown age category showed low numbers throughout the period, peaking at 14 in 2022 before dropping to 9 in 2023.
 
 
-
+@fig-bar-3 presents the percentage distribution of deaths among homeless individuals categorized by both age group and gender. According to the chart, the male gender dominates across all age groups, with the highest representation in the 20-39, 40-59, and 60+ age groups, where males constitute nearly 75% or more of the total deaths. In the under 20 age group, males and females are more evenly represented. The Unknown category indicates some cases where gender identification may be incomplete or not recorded like I mentioned before in "Limitations of the data".
 
 
 ```{r}
 #| eval: true
-#| label: fig-3
+#| label: fig-2
 #| fig-cap: Number of deaths by different causes
 #| echo: false
 
@@ -144,13 +118,13 @@ analysis_data %>%
   labs(x="Cause of deaths", y="Number of deaths")
 ```
 
-
+@fig-2 presents the number of deaths among homeless individuals categorized by cause of death. According to the chart, drug toxicity is the leading cause, with over 300 deaths. As mentioned before in "Limitations of the data", due to possible gaps in data collection or reporting, a significant number of deaths are categorized under unknown causes. Cardiovascular disease is the next most common cause, followed by cancer, accidents, and suicide. Pneumonia, homicide, and infection are less frequent causes, ending with COVID-19 resulting in the fewest deaths.
 
 
 
 ```{r}
 #| eval: true
-#| label: fig-4
+#| label: fig-3
 #| fig-cap: Percentage of deaths by causes for different genders
 #| echo: false
 #| warning: false
@@ -163,6 +137,13 @@ analysis_data %>%
   scale_y_continuous(labels = scales::percent) +
   coord_flip()
 ```
+@fig-bar-4 presents the percentage of deaths among homeless individuals categorized by cause of death and gender. According to the chart, the male gender ranks highest across nearly all causes of death, particularly in categories such as drug toxicity, cardiovascular disease, and cancer, where males have the majority of the deaths. In contrast, female homeless death caused more by suicide and pneumonia, though still lower than that of males. The Unknown category appears in some causes, reflecting cases where gender identification might be incomplete or unrecorded, as discussed in "Limitations of the data."
+
+
+## Conclusion 
+
+In conclusion, the analysis of homeless death data from 2017 to 2023, as provided by Open Data Toronto, has demonstrated the critical factors affecting the health and well-being of a very vulnerable community in society. The data reveals that drug toxicity is the leading cause of death among the homeless, with cardiovascular disease and cancer also contributing significantly to mortality rates. This analysis underscores the existing health challenges and risks faced by this community, calling for assistance from governments, organizations, and citizens. By raising awareness among individuals and fostering societal support, such as centers for drug rehabilitation and home shelters, the society could greatly help in reducing the unfortunates among the homeless.
+
 
 
 \clearpage
